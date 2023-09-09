@@ -15,7 +15,7 @@ import javax.validation.*;
 
 @RestController
 public class UserJwtController {
-    // !!! Bu class'da sadece Login ve Register işlemleri yapılacak
+    // !!! Only Login and Register transactions will be made in this class
     @Autowired
     private JwtUtils jwtUtils;
 
@@ -51,10 +51,10 @@ public class UserJwtController {
              Authentication authentication =
                   authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
-            // !!! Kullanıcı bu aşamada valide edildi ve Token üretimine geçiliyor
+            // !!! The user was validated at this stage and Token production is underway
              UserDetails userDetails = (UserDetails) authentication.getPrincipal();
              String jwtToken = jwtUtils.generateJwtToken(userDetails);
-             // !!! JWT token client tarafına gönderiliyor
+             // !!! JWT token is sent to client
             LoginResponse loginResponse = new LoginResponse(jwtToken);
 
             return new ResponseEntity<>(loginResponse,HttpStatus.OK);

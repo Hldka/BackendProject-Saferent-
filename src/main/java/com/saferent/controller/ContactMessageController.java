@@ -18,7 +18,7 @@ import java.util.*;
 @RequestMapping("/contactmessage")  // http://localhost:8080/contactmessage/
 public class ContactMessageController {
 
-    //@Autowired // field injection yapmamak için commente alındı
+    //@Autowired // field injection :undesirable
     private final ContactMessageService contactMessageService;
 
     private final ContactMessageMapper contactMessageMapper;
@@ -72,7 +72,7 @@ public class ContactMessageController {
         return ResponseEntity.ok(pageDTO);
     }
 
-   // !!! spesifik olarak bir ContactMessage PathVariable ile alalım
+   // !!! let's take it specifically with a ContactMessage PathVariable
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ContactMessageDTO> getMessageWithPath(@PathVariable("id") Long id) {
@@ -85,7 +85,7 @@ public class ContactMessageController {
 
     }
 
-    // !!! spesifik olarak bir ContactMessage RequestParam ile alalım
+    // !!! let's take it specifically  ContactMessage with a RequestParam
     @GetMapping("/request")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ContactMessageDTO> getMessageWithRequestParam(
@@ -97,7 +97,7 @@ public class ContactMessageController {
 
     }
 
-    //!!! Delete işlemi
+    //!!! Delete
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SfResponse> deleteContactMessage(@PathVariable Long id){

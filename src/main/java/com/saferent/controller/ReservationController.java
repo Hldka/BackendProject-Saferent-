@@ -162,7 +162,7 @@ public class ReservationController {
 
     }
 
-    //***********  Customer veya Admin kendine ait olan reservasyon bilgilerini getirsin  ******
+    //*********** May Customer or Admin bring their own reference information   ******
     @GetMapping("/{id}/auth") // TODO : bakılacak
     @PreAuthorize("hasRole('ADMIN') or hasRole('CUSTOMER')")
     public ResponseEntity<ReservationDTO> getUserReservationById(@PathVariable Long id) {

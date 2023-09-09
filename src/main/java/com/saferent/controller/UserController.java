@@ -30,7 +30,7 @@ public class UserController {
          return ResponseEntity.ok(allUsers);
     }
 
-    //!!! Sisteme giriş yapan kullanıcının bilgisi...
+    //!!! CurrencyUser information...
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('CUSTOMER')")
     public ResponseEntity<UserDTO> getUser() {
@@ -93,7 +93,7 @@ public class UserController {
 
     }
 
-    //!!! Admin herhangi bir kulllanıcıyı update etsin
+    //!!! Admin ist anyone user updated
     @PutMapping("/{id}/auth")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SfResponse> updateUserAuth(@PathVariable Long id,
