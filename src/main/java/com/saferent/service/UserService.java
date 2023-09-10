@@ -51,7 +51,7 @@ public class UserService {
     }
 
     public void saveUser(RegisterRequest registerRequest) {
-        //!!! DTO dan gelen email sistemde daha önce var mı ???
+        //!!! Is there any email system from DTO before ???
         if(userRepository.existsByEmail(registerRequest.getEmail())){
             throw  new ConflictException(
                     String.format(ErrorMessage.EMAIL_ALREADY_EXIST_MESSAGE,
@@ -59,15 +59,15 @@ public class UserService {
             );
         }
 
-        // !!! yeni kullanıcın rol bilgisini default olarak customer atıyorum
+        // !!! I am throwing the role information of the new user as a default
         Role role = roleService.findByType(RoleType.ROLE_CUSTOMER);
         Set<Role> roles = new HashSet<>();
         roles.add(role);
 
-        //!!! Db ye gitmeden önce şifre encode edilecek
+        //!!! Password will be encode before going to Db
         String encodedPassword= passwordEncoder.encode(registerRequest.getPassword());
 
-        //!!! yeni kullanıcının gerekli bilgilerini setleyip DB ye gönderiyoruz
+        //!!! we set the required information of the new user and send it to DB
         User user = new User();
         user.setFirstName(registerRequest.getFirstName());
         user.setLastName(registerRequest.getLastName());
@@ -134,12 +134,12 @@ public class UserService {
         if(user.getBuiltIn()){
             throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
         }
-        // !!! Forma girilen OldPassword doğru mu
+        // !!! Is OldPassword entered in the form correct
         if(!passwordEncoder.matches(updatePasswordRequest.getOldPassword(), user.getPassword())) {
             throw new BadRequestException(ErrorMessage.PASSWORD_NOT_MATCHED_MESSAGE);
         }
 
-        // !!! yeni gelen şifreyi encode edilecek
+        // !!! will encode new incoming password
         String hashedPassword =passwordEncoder.encode(updatePasswordRequest.getNewPassword());
         user.setPassword(hashedPassword);
 
@@ -155,7 +155,7 @@ public class UserService {
             throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
         }
 
-        // !!! email kontrol
+        // !!! email-control
         boolean emailExist = userRepository.existsByEmail(userUpdateRequest.getEmail());
 
         if(emailExist && !userUpdateRequest.getEmail().equals(user.getEmail())) {
@@ -179,14 +179,14 @@ public class UserService {
         if (user.getBuiltIn()) {
             throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
         }
-        //!!! email kontrolu
+        //!!! email-control
         boolean emailExist = userRepository.existsByEmail(adminUserUpdateRequest.getEmail());
 
         if (emailExist && !adminUserUpdateRequest.getEmail().equals(user.getEmail())) {
             throw new ConflictException(
                     String.format(ErrorMessage.EMAIL_ALREADY_EXIST_MESSAGE, adminUserUpdateRequest.getEmail()));
         }
-        //!!! passsword kontrol
+        //!!! passsword-control
         String encodedPassword = null;
         if (adminUserUpdateRequest.getPassword() == null) {
             adminUserUpdateRequest.setPassword(user.getPassword());
@@ -250,7 +250,7 @@ public class UserService {
             throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
         }
 
-        // !!! reservasyon kontrol
+        // !!! reservation-control
         boolean exist =  reservationService.existByUser(user);
         if(exist) {
             throw  new BadRequestException(ErrorMessage.USER_CANT_BE_DELETED_MESSAGE);

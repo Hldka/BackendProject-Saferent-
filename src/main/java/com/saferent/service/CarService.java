@@ -28,16 +28,16 @@ public class CarService {
     }
 
     public void saveCar(String imageId, CarDTO carDTO) {
-        //!!! image Id , Repo da var mi ??
+        //!!! image Id , is there a Repo ??
         ImageFile imageFile = imageFileService.findImageById(imageId);
         //!!! imadeId daha once baska bir arac icin kullanildi mi ???
         Integer usedCarCount = carRepository.findCarCountByImageId(imageFile.getId());
         if(usedCarCount>0) {
             throw new ConflictException(ErrorMessage.IMAGE_USED_MESSAGE);
         }
-        //!!! mapperislemi
+        //!!! mapper
         Car car = carMapper.carDTOToCar(carDTO);
-        //!!! image bilgisini Car a ekliyoruz
+        //!!! we add image information to Car
         Set<ImageFile> imFiles = new HashSet<>();
         imFiles.add(imageFile);
         car.setImage(imFiles);
@@ -65,7 +65,7 @@ public class CarService {
         return carMapper.carToCarDTO(car);
     }
 
-    //!!! yardımcı metod
+    //!!! stooge method
     private Car getCar(Long id){
         Car car = carRepository.findCarById(id).orElseThrow(()->
                 new ResourceNotFoundException(
@@ -81,7 +81,7 @@ public class CarService {
             throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
         }
 
-        // !!! verilen image daha önce başka araç içni kullanılmış mı ???
+        // !!! Is the image given previously used in another vehicle ???
         ImageFile imageFile =  imageFileService.findImageById(imageId);
 
         List<Car> carList = carRepository.findCarsByImageId(imageFile.getId());
@@ -114,7 +114,7 @@ public class CarService {
         if(car.getBuiltIn()){
             throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
         }
-        // !!! reservasyon kontrol
+        // !!! reservation control
          boolean exist =  reservationService.existByCar(car);
         if(exist) {
             throw  new BadRequestException(ErrorMessage.CAR_USED_BY_RESERVATION_MESSAGE);

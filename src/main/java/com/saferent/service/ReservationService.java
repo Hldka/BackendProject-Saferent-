@@ -49,7 +49,7 @@ public class ReservationService {
         reservationRepository.save(reservation);
 
     }
-    // !!! Istenen rezervasyon tarihleri doğru mu ???
+    // !!! Are the reservation dates correct  ???
     public void checkReservationTimeIsCorrect(LocalDateTime pickUpTime,
                                                LocalDateTime dropOfTime){
         LocalDateTime now = LocalDateTime.now();
@@ -58,9 +58,9 @@ public class ReservationService {
             throw new BadRequestException(ErrorMessage.RESERVATION_TIME_INCORRECT_MESSAGE);
         }
 
-        //!!! baç. tarihi ve bitiş tarihi biribirine eşit mi
+        //!!! Is the start date and end date equal to one
          boolean isEqual = pickUpTime.isEqual(dropOfTime)?true:false;
-        // !!! baş. tarihi, bitiş tarihinin öncesinde mi
+        // !!! Is the start date before the end date?
          boolean isBefore = pickUpTime.isBefore(dropOfTime)?true:false; // !!!
 
          if(isEqual || !isBefore){
@@ -69,7 +69,7 @@ public class ReservationService {
 
     }
 
-    // !!! Araç müsait mi ???
+    // !!! Is the vehicle available ???
     public boolean checkCarAvailability(Car car,LocalDateTime pickUpTime,
                                          LocalDateTime dropOfTime) {
 
@@ -79,7 +79,7 @@ public class ReservationService {
 
     }
 
-    // !!! Fiyat Hesaplaması
+    // !!! price calculation
     public Double getTotalPrice(Car car,LocalDateTime pickUpTime,
                                  LocalDateTime dropOfTime){
         Long minutes =  ChronoUnit.MINUTES.between(pickUpTime,dropOfTime);
@@ -88,7 +88,7 @@ public class ReservationService {
 
     }
 
-    // !!! Reservasyonlar arası çakışma var mı ???
+    // !!!Is there a conflict between reservations ???
     public List<Reservation> getConflictReservations(Car car,LocalDateTime pickUpTime,
                                                       LocalDateTime dropOfTime ){
         if(pickUpTime.isAfter(dropOfTime)){
@@ -116,18 +116,17 @@ public class ReservationService {
 
     public void updateReservation(Long reservationId, Car car, ReservationUpdateRequest reservationUpdateRequest) {
         Reservation reservation = getById(reservationId);
-        // !!! rezervasyon statüsü "cancel" veya "done" ise update işlemi yapılamasın
+        // !!! If the reservation status is "cancel" or "done", do not apply
         if(reservation.getStatus().equals(ReservationStatus.CANCELED) ||
                 reservation.getStatus().equals(ReservationStatus.DONE))   {
             throw new BadRequestException(ErrorMessage.RESERVATION_STATUS_CANT_CHANGE_MESSAGE);
         }
-        // !!! reservasyon update edilecekken statüsü create yapılmayacaksa pickUpTime ve
-            //  DropOfTime kontrolü yapılamasın
+        // !!! Do not check pickUpTime and DropOfTime if the status is not to be created while the reference is to be update
         if(reservationUpdateRequest.getStatus() != null &&
             reservationUpdateRequest.getStatus()== ReservationStatus.CREATED) {
             checkReservationTimeIsCorrect(reservationUpdateRequest.getPickUpTime(),
                     reservationUpdateRequest.getDropOfTime());
-            // !!! Conflict kontrolü
+            // !!! ConflictControl
             List<Reservation> conflictReservations = getConflictReservations(car,
                     reservationUpdateRequest.getPickUpTime(),
                     reservationUpdateRequest.getDropOfTime());
@@ -137,7 +136,7 @@ public class ReservationService {
                     throw  new BadRequestException(ErrorMessage.CAR_NOT_AVAILABLE_MESSAGE);
                 }
             }
-            // !!! fiyat hesaplaması
+            // !!! price-calculation
             Double totalPrice = getTotalPrice(car,reservationUpdateRequest.getPickUpTime(),reservationUpdateRequest.getDropOfTime());
 
             reservation.setTotalPrice(totalPrice);
@@ -180,7 +179,7 @@ public class ReservationService {
     }
 
     public void removeById(Long id) {
-        // !!! Acaba var mı ??
+        // !!! Is there Any??
         boolean exist = reservationRepository.existsById(id);
 
         if(!exist) {
