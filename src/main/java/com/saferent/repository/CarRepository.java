@@ -15,13 +15,13 @@ public interface CarRepository extends JpaRepository<Car,Long> {
     Integer findCarCountByImageId(@Param("id") String id);
 
 
-    @EntityGraph(attributePaths = {"image"})//!!! EAGER yaptik
+    @EntityGraph(attributePaths = {"image"})//!!! EAGER
     List<Car> findAll();
 
-    @EntityGraph(attributePaths = {"image"})//!!! EAGER yaptik
+    @EntityGraph(attributePaths = {"image"})//!!! EAGER
     Page<Car> findAll(Pageable pageable);
 
-    @EntityGraph(attributePaths = {"image"})//!!! EAGER yaptik
+    @EntityGraph(attributePaths = {"image"})//!!! EAGER
     Optional<Car> findCarById(Long id);
 
     @Query("Select c from Car c join c.image im where im.id=:id")

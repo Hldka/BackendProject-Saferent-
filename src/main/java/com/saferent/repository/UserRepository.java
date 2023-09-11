@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Boolean existsByEmail(String email);
 
-    @EntityGraph(attributePaths = "roles") // Defaultta Lazy olan Role bilgilerini EAGER yaptık
+    @EntityGraph(attributePaths = "roles") // We made Role information EAGER with Defaultta Lazy
     Optional<User> findByEmail(String email);
 
     @EntityGraph(attributePaths = "roles") // 2 query
@@ -25,7 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @EntityGraph(attributePaths = "roles")
     Optional<User> findById(Long id);
 
-    @EntityGraph(attributePaths = "id") // bana Rolleri getirme
+    @EntityGraph(attributePaths = "id") // don't bring me the roles
     Optional<User> findUserById(Long id);
 
 

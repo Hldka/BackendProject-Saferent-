@@ -49,7 +49,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    //*************** cors Ayarları ****************************
+    //*************** cors Settings ****************************
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -76,7 +76,7 @@ public class SecurityConfig {
             "/js/**"
     };
 
-    // yukardaki static listeyi de giriş izni veriyoruz, boiler plate
+    // We also allow entry to the static list above, boiler plate
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         WebSecurityCustomizer customizer=new WebSecurityCustomizer() {
@@ -117,7 +117,7 @@ public class SecurityConfig {
                 build();
     }
 
-    // !!! AutTokenFilter ( JWT token üreten ve valide eden class )
+    // !!! AutTokenFilter (JWT token producing and validating class  )
     @Bean
     public AuthTokenFilter authTokenFilter() {
         return new AuthTokenFilter();

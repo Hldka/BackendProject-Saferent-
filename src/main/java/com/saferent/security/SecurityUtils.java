@@ -8,8 +8,7 @@ import java.util.*;
 
 public class SecurityUtils {
 
-    // !!! Controller veya Servis Katmanında anlık olarak login olan kullanıcıya
-        // ulaşmak için bu classı yazdık
+    // !!! We wrote this class to reach the user who instantly logged in the Controller or Service Layer
     public static Optional<String> getCurrentUserLogin() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication =securityContext.getAuthentication();

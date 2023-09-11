@@ -29,7 +29,7 @@ public class JwtUtils {
                 compact();
     }
 
-    // !!! JWT token içinden email bilgisine ulaşacağım method
+    // !!!I will reach email information from JWT token method
     public String getEmailFromToken(String token){
         return Jwts.parser().setSigningKey(jwtSecret).
                 parseClaimsJws(token).

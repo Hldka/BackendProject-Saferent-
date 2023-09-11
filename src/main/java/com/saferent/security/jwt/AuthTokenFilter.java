@@ -28,7 +28,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException,
                                     IOException {
-        // requestin içinde JwtToken i elde edeceğiz
+        // we will get JwtToken in request
         String jwtToken = parseJwt(request);
 
         try {
@@ -36,7 +36,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 String email = jwtUtils.getEmailFromToken(jwtToken);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-                // !!! Valide edilen user bilgilerini SecurityContext e gönderiyoruz
+                // !!! We send validated user information to SecurityContext
                 UsernamePasswordAuthenticationToken authenticationToken = new
                         UsernamePasswordAuthenticationToken(userDetails,
                         null,

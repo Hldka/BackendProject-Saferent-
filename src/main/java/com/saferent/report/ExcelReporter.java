@@ -39,13 +39,13 @@ public class ExcelReporter {
          Sheet sheet = workbook.createSheet(SHEET_USER);
          Row headerRow =  sheet.createRow(0);
 
-         // header row dolduruluyor
+         // header row is filling
         for(int i=0; i< USER_HEADERS.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(USER_HEADERS[i]);
         }
 
-        // dataları dolduruyoruz
+        // we fill the datas
         int rowId = 1;
         for(User user : users) {
             Row row = sheet.createRow(rowId++);
@@ -85,13 +85,13 @@ public class ExcelReporter {
         Sheet sheet = workbook.createSheet(SHEET_CAR);
         Row headerRow =  sheet.createRow(0);
 
-        // header row dolduruluyor
+        // header row is filling
         for(int i=0; i< CAR_HEADERS.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(CAR_HEADERS[i]);
         }
 
-        // dataları dolduruyoruz
+        // we fill the datas
         int rowId = 1;
         for(Car car : cars) {
             Row row = sheet.createRow(rowId++);
@@ -131,7 +131,7 @@ public class ExcelReporter {
             cell.setCellValue(RESERVATION_HEADERS[i]);
         }
 
-        // dataları dolduruyoruz
+        // we fill the datas
         int rowId = 1;
         for (Reservation reservation : reservations) {
             Row row = sheet.createRow(rowId++);
