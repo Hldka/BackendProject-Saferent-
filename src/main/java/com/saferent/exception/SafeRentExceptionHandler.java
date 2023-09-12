@@ -15,11 +15,11 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.stream.*;
 
-@ControllerAdvice // merkezi exception handle etmek için
+@ControllerAdvice // to handle the central exception
 public class SafeRentExceptionHandler extends ResponseEntityExceptionHandler {
 
-    // AMACIM : custom bir exception sistemini kurmak, gelebilecek exceptionları
-    // override ederek, istediğim yapıda cevap verilmesini sağlamak
+    //AIM: Custom install an exception system, may come up with exceptions
+    //    override to ensure that I want to be answered
 
     Logger logger = LoggerFactory.getLogger(SafeRentExceptionHandler.class);
 

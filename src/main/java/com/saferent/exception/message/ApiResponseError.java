@@ -6,7 +6,7 @@ import org.springframework.http.*;
 import java.time.*;
 
 public class ApiResponseError {
-    // AMACIM : custom error mesajlarının ana soblonunu ouşturmak
+    // AIM: Fighting the main soblon of custom error messages
 
 
 
@@ -26,14 +26,14 @@ public class ApiResponseError {
     }
 
     public ApiResponseError(HttpStatus status){
-        this(); // yukardaki parametresiz private const. çağırılıyor
+        this(); // paramethress-free private const. Calling
         this.message="Unexpected Error";
         this.status = status ;
 
     }
 
     public ApiResponseError(HttpStatus status, String message, String requestURI) {
-        this(status); // yukardaki 1 parametreli, public const. çağrılıyor
+        this(status); //1 parameter above, public const. calling
         this.message = message;
         this.requestURI = requestURI;
     }
