@@ -11,7 +11,7 @@ import java.util.*;
 @NoArgsConstructor
 public class UserDTO {
 
-    // !!! bu class repodan gelen pojo yu DTO ya çevirmek için kullanılacak
+    // !!! will be used to convert pojo yu DTO from this class repo
 
     private Long id;
     private String firstName;

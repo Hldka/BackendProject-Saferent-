@@ -45,7 +45,7 @@ public class ExcelReporter {
             cell.setCellValue(USER_HEADERS[i]);
         }
 
-        // we fill the datas
+        // we fill the Datas
         int rowId = 1;
         for(User user : users) {
             Row row = sheet.createRow(rowId++);
@@ -125,7 +125,7 @@ public class ExcelReporter {
         Sheet sheet = workbook.createSheet(SHEET_RESERVATION);
         Row headerRow =  sheet.createRow(0);
 
-        // header row dolduruluyor
+        //fill the Header row
         for(int i=0; i< RESERVATION_HEADERS.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(RESERVATION_HEADERS[i]);
