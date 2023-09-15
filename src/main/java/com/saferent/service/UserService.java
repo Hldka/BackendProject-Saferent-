@@ -64,7 +64,7 @@ public class UserService {
         Set<Role> roles = new HashSet<>();
         roles.add(role);
 
-        //!!! Password will be encode before going to Db
+        //!!! Password will be encoded before going to Db
         String encodedPassword= passwordEncoder.encode(registerRequest.getPassword());
 
         //!!! we set the required information of the new user and send it to DB
@@ -155,7 +155,7 @@ public class UserService {
             throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
         }
 
-        // !!! email-control
+        // !!! Email-control
         boolean emailExist = userRepository.existsByEmail(userUpdateRequest.getEmail());
 
         if(emailExist && !userUpdateRequest.getEmail().equals(user.getEmail())) {
@@ -186,7 +186,7 @@ public class UserService {
             throw new ConflictException(
                     String.format(ErrorMessage.EMAIL_ALREADY_EXIST_MESSAGE, adminUserUpdateRequest.getEmail()));
         }
-        //!!! passsword-control
+        //!!! password-control
         String encodedPassword = null;
         if (adminUserUpdateRequest.getPassword() == null) {
             adminUserUpdateRequest.setPassword(user.getPassword());
@@ -194,7 +194,7 @@ public class UserService {
             encodedPassword = passwordEncoder.encode(adminUserUpdateRequest.getPassword());
             adminUserUpdateRequest.setPassword(encodedPassword);
         }
-        //!!! Role
+        //!!! Role uniqe role
         Set<String> userStrRoles = adminUserUpdateRequest.getRoles();
 
         Set<Role> roles = convertRoles(userStrRoles);

@@ -17,7 +17,7 @@ public class ReportController {
     public ReportController(ReportService reportService) {
         this.reportService = reportService;
     }
-
+//************* User_Report  ************************
     @GetMapping("/download/users") // http://localhost:8080/excel/download/users
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Resource> getUserReport() {
@@ -46,7 +46,7 @@ public class ReportController {
 
     }
 
-    //****************** RESERVATION_REPORT*********************
+    //****************** RESERVATION_REPORT   ************************
     @GetMapping("/download/reservations")// http://localhost:8080/excel/download/reservations
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Resource> getReservationReport() {
