@@ -30,7 +30,7 @@ public class CarService {
     public void saveCar(String imageId, CarDTO carDTO) {
         //!!! image Id , is there a Repo ??
         ImageFile imageFile = imageFileService.findImageById(imageId);
-        //!!! imadeId daha once baska bir arac icin kullanildi mi ???
+        //!!! imajeId more than tence was it used to push another vehicle ???
         Integer usedCarCount = carRepository.findCarCountByImageId(imageFile.getId());
         if(usedCarCount>0) {
             throw new ConflictException(ErrorMessage.IMAGE_USED_MESSAGE);

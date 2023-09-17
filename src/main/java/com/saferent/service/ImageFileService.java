@@ -53,7 +53,7 @@ public class ImageFileService {
         // image1 : localhost:8080/files/download/id
 
         List<ImageFileDTO> imageFileDTOS =imageFiles.stream().map(imFile->{
-            // URI olusturulmasini sagliyacagiz
+            //  URI will be created
             String imageUri = ServletUriComponentsBuilder.
                     fromCurrentContextPath(). // localhost:8080
                     path("/files/download/"). // localhost:8080/files/download
